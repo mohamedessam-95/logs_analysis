@@ -1,0 +1,4 @@
+create view question1 AS select articles.title, count(*) as num from articles join log on articles.slug = substr(log.path, 10) where path != '/' group by articles.title order by num desc limit 3;
+
+
+create view question2 AS select authors.name, sub.num from authors join (select articles.author, count(*) as num from articles join log on articles.slug = substr(log.path, 10) where path != '/' group by articles.author order by num desc) as sub on sub.author = authors.id;
